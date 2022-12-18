@@ -1,0 +1,100 @@
+@import './variable.less';
+
+
+each(@fontList, {
+  .fs-@{key} {
+    font-size: @value;
+  }
+})
+
+each(@flexJustify, {
+  .j-@{key} {
+    justify-content: @value;
+  }
+})
+
+each(@flexAlign, {
+  .a-@{key} {
+    align-items: @value;
+  }
+})
+
+each(@textAlign, {
+  .t-@{key} {
+    text-align: @value;
+  }
+})
+
+each(@bgColor, {
+  .bg-@{key} {
+    background-color: @value;
+  }
+})
+
+each(@textColor, {
+  .t-@{key} {
+    color: @value;
+  }
+})
+
+each(@space-types, .(@v, @k, @i) {
+  each(@space-sizes,.(@v1, @k1, @i1) {
+    .@{k}-@{k1} {
+      @{v}: @v1;
+    }
+  })
+  each(@space-sizes, .(@v1, @k1, @i1) {
+    .@{k}x-@{k1} {
+      @{v}-left: @v1;
+      @{v}-right: @v1;
+    }
+    .@{k}y-@{k1} {
+      @{v}-top: @v1;
+      @{v}-bottom: @v1;
+    }
+  })
+  each(@space-directions, .(@v2, @k2, @i2) {
+    each(@space-sizes,.(@v3, @k3, @i3) {
+      .@{k}@{k2}-@{k3} {
+        @{v}-@{v2}: @v3;
+      }
+    })
+  })
+})
+
+.d-flex {
+  display: flex;
+}
+.f-dir {
+  flex-direction: column;
+}
+.f-wrap {
+  flex-wrap: wrap;
+}
+.w100 {
+  width: 100%;
+}
+
+.res {
+  position: relative;
+}
+
+.abs {
+  position: absolute;
+}
+
+.curp {
+  cursor: pointer;
+}
+
+.f-bold {
+  font-weight: 600;
+}
+
+.border-b {
+  border-bottom: 1px solid #ccc;
+}
+
+.bor-ra-btn {
+  border-radius: 4px;
+}
