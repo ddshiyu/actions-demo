@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import timecom from '../components/time/Index.vue'
+import opration from '../components/opration/Index.vue'
 
 </script>
 
@@ -9,6 +10,7 @@ import timecom from '../components/time/Index.vue'
       <source src="@/assets/video.mp4" type="video/mp4">
     </video>
     <timecom></timecom>
+    <opration></opration>
   </main>
 </template>
 
