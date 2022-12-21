@@ -5,7 +5,7 @@ import opration from '../components/opration/Index.vue'
 </script>
 
 <template>
-  <main class="d-flex j-center">
+  <main>
     <video autoplay muted loop>
       <source src="@/assets/video.mp4" type="video/mp4">
     </video>

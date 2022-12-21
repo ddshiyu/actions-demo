@@ -1,5 +1,5 @@
 <template>
-  <div class="time m-20">{{t}}</div>
+  <div class="time m-20 t-center">{{t}}</div>
 </template>
 
 <script lang='ts' setup>
@@ -19,5 +19,6 @@
 <style scoped lang='less'>
 .time {
   font-size: 60px;
+  height: auto;
 }
 </style>
