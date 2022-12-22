@@ -11,8 +11,8 @@
     </div>
     <div>
       <div class="outer">
-        <div class="inner" :style="{ width: (time) / (60 * 25) * 100 + '%' }"></div>
-        <div class="inner-rest"></div>
+        <div class="inner" :style="{ width: (time) / (60 * 25) * 100 + '%' }" v-if="showInner"></div>
+        <div class="inner-rest" :style="{ width: (restTime) / (60 * 5) * 100 + '%' }" v-else></div>
       </div>
     </div>
   </div>
@@ -23,14 +23,18 @@ import { reactive, toRefs, onBeforeMount, onMounted, ref } from 'vue'
 interface timeObj {
   min: number;
   sec: number;
+  nowTime: number;
 }
 let time = ref<number>(60 * 25)
 let restTime = ref<number>(60 * 5)
 let timer = ref<number>(0)
+let timerRest = ref<number>(0)
 let timeObj = reactive<timeObj>({
   min: 0,
-  sec: 0
+  sec: 0,
+  nowTime: 60 * 25
 })
+let showInner: boolean = true
 function showTime(): void {
   time.value -= 1
   timeObj.min = Math.floor(+time.value / 60)  //计算分钟数
@@ -44,21 +48,32 @@ function showTime1(): void {
   console.log(restTime.value)
 }
 function start(): void {
-  if (timer.value) clearInterval(timer.value)
+  if (timerRest.value) {
+    clearInterval(timerRest.value)
+  }
+  showInner = true
+  time.value = 60 * 25
   timer.value = window.setInterval(() => {
+    if (time.value <= 0) {
+      clearInterval(timer.value)
+    }
     showTime()
   }, 1000)
 }
 function reset(): void {
-  if (timer.value) clearInterval(timer.value)
-  timer.value = window.setInterval(() => {
+  if (timer.value) {
+    clearInterval(timer.value)
+  }
+  showInner = false
+  restTime.value = 60 * 5
+  timerRest.value = window.setInterval(() => {
+    if (restTime.value <= 0) {
+      clearInterval(timerRest.value)
+    }
     showTime1()
   }, 1000)
 }
 onMounted(() => {
-  // timer.value = window.setInterval(() => {
-  //   showTime()
-  // }, 1000)
 })
 </script>
 <style scoped lang='less'>
@@ -85,10 +100,14 @@ input {
   background: #fff;
 }
 
-.inner {
+.inner, .inner-rest {
   width: 60%;
   height: 38px;
   border-radius: 25px;
   background: lightblue;
+}
+
+.inner-rest {
+  background: limegreen;
 }
 </style>
